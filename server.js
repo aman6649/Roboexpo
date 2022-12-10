@@ -7,7 +7,14 @@ const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+app.use(express.static("client/build"));
 
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
+app.listen(PORT, () => {
+  console.log("Server is up and running on the port " + PORT);
+});
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.json());
@@ -51,13 +58,4 @@ app.post("/registerteam", function (req, res) {
   } else {
     res.status(401).json({ message: "Please fill all details" });
   }
-});
-
-app.use(express.static("client/build"));
-
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
-app.listen(PORT, () => {
-  console.log("Server is up and running on the port " + PORT);
 });
