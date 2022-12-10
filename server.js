@@ -53,7 +53,7 @@ app.post("/registerteam", function (req, res) {
   }
 });
 
-app.use(express.static(path.join(__dirname, "./client/build")));
+app.use(express.static("client/build"));
 
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
